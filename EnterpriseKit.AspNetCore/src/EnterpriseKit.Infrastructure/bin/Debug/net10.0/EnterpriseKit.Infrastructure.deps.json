@@ -1,0 +1,88 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "EnterpriseKit.Infrastructure/1.0.0": {
+        "dependencies": {
+          "EnterpriseKit.Application": "1.0.0",
+          "EnterpriseKit.Domain": "1.0.0",
+          "EnterpriseKit.SharedKernel": "1.0.0"
+        },
+        "runtime": {
+          "EnterpriseKit.Infrastructure.dll": {}
+        }
+      },
+      "EnterpriseKit.Application/1.0.0": {
+        "dependencies": {
+          "EnterpriseKit.Contracts": "1.0.0",
+          "EnterpriseKit.Domain": "1.0.0",
+          "EnterpriseKit.SharedKernel": "1.0.0"
+        },
+        "runtime": {
+          "EnterpriseKit.Application.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "EnterpriseKit.Contracts/1.0.0": {
+        "runtime": {
+          "EnterpriseKit.Contracts.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "EnterpriseKit.Domain/1.0.0": {
+        "dependencies": {
+          "EnterpriseKit.SharedKernel": "1.0.0"
+        },
+        "runtime": {
+          "EnterpriseKit.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "EnterpriseKit.SharedKernel/1.0.0": {
+        "runtime": {
+          "EnterpriseKit.SharedKernel.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "EnterpriseKit.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EnterpriseKit.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EnterpriseKit.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EnterpriseKit.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EnterpriseKit.SharedKernel/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
