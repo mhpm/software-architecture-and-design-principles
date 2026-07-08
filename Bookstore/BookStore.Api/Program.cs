@@ -1,3 +1,5 @@
+using BookStore.Api.Models;
+using BookStore.Api.Repositories;
 using BookStore.Api.Rules;
 using BookStore.Api.Services;
 
@@ -10,12 +12,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Repository
+builder.Services.AddSingleton<IRepository<Book>, BookRepository>();
+
 // Service
 builder.Services.AddScoped<BookService>();
+builder.Services.AddScoped<BookArchiver>();
 
 // Rules
 builder.Services.AddScoped<IBookDeletionRule, PremiumBookDeletionRule>();
 builder.Services.AddScoped<IBookDeletionRule, LoanedBookDeletionRule>();
+builder.Services.AddScoped<IBookDeletionRule, HistoricalBookDeletionRule>();
 
 var app = builder.Build();
 

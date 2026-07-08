@@ -17,5 +17,10 @@ public class Book
     public int Stock { get; set; }
 
     public bool IsPremium { get; set; }
+
     public bool IsLoaned { get; set; }
+
+    public bool IsHistorical { get; set; }
+
+    public bool IsArchived { get; set; }
 }
