@@ -1,0 +1,21 @@
+# Build outputs
+**/[Bb]in/
+**/[Oo]bj/
+
+# IDE and Editor Files
+.vs/
+.vscode/
+.idea/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.sln.docstates
+*.sln.DotSettings.user
+
+# Publish outputs
+**/publish/
+**/[Pp]ublish/
+
+# Logs
+*.log
