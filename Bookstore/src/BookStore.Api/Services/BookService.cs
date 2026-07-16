@@ -1,6 +1,7 @@
+using BookStore.Api.DTOs;
 using BookStore.Api.Models;
-using BookStore.Api.Rules;
 using BookStore.Api.Repositories;
+using BookStore.Api.Rules;
 
 namespace BookStore.Api.Services;
 
@@ -17,36 +18,48 @@ public class BookService
         _deletionRules = deletionRules;
     }
 
-    public IEnumerable<Book> GetAll()
+    public IEnumerable<BookResponse> GetAll()
     {
-        return _repository.GetAll();
+        return _repository
+            .GetAll()
+            .Select(ToResponse);
     }
 
-    public Book? GetById(int id)
+    public BookResponse? GetById(int id)
     {
-        return _repository.GetById(id);
+        var book = _repository.GetById(id);
+
+        return book is null
+            ? null
+            : ToResponse(book);
     }
 
-    public Book Create(Book book)
+    public BookResponse Create(CreateBookRequest request)
     {
+        var book = ToEntity(request);
+
         _repository.Add(book);
 
-        return book;
+        return ToResponse(book);
     }
 
-    public bool Update(int id, Book updatedBook)
+    public bool Update(int id, UpdateBookRequest request)
     {
-        var book = GetById(id);
+        var book = _repository.GetById(id);
 
         if (book is null)
             return false;
 
-        book.Title = updatedBook.Title;
-        book.Author = updatedBook.Author;
-        book.ISBN = updatedBook.ISBN;
-        book.Price = updatedBook.Price;
-        book.Stock = updatedBook.Stock;
-        book.PublishedDate = updatedBook.PublishedDate;
+        book.Title = request.Title;
+        book.AuthorId = request.AuthorId;
+        book.ISBN = request.ISBN;
+        book.PublishedDate = request.PublishedDate;
+        book.Price = request.Price;
+        book.Stock = request.Stock;
+        book.IsPremium = request.IsPremium;
+        book.IsLoaned = request.IsLoaned;
+        book.IsHistorical = request.IsHistorical;
+        book.IsArchived = request.IsArchived;
 
         _repository.Update(book);
 
@@ -55,7 +68,7 @@ public class BookService
 
     public bool Delete(int id)
     {
-        var book = GetById(id);
+        var book = _repository.GetById(id);
 
         if (book is null)
             return false;
@@ -68,5 +81,40 @@ public class BookService
         _repository.Delete(id);
 
         return true;
+    }
+
+    private static Book ToEntity(CreateBookRequest request)
+    {
+        return new Book
+        {
+            Title = request.Title,
+            AuthorId = request.AuthorId,
+            ISBN = request.ISBN,
+            PublishedDate = request.PublishedDate,
+            Price = request.Price,
+            Stock = request.Stock,
+            IsPremium = request.IsPremium,
+            IsLoaned = request.IsLoaned,
+            IsHistorical = request.IsHistorical,
+            IsArchived = request.IsArchived
+        };
+    }
+
+    private static BookResponse ToResponse(Book book)
+    {
+        return new BookResponse
+        {
+            Id = book.Id,
+            Title = book.Title,
+            Author = book.Author.Name,
+            ISBN = book.ISBN,
+            PublishedDate = book.PublishedDate,
+            Price = book.Price,
+            Stock = book.Stock,
+            IsPremium = book.IsPremium,
+            IsLoaned = book.IsLoaned,
+            IsHistorical = book.IsHistorical,
+            IsArchived = book.IsArchived
+        };
     }
 }

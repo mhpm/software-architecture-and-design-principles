@@ -1,15 +1,10 @@
-namespace BookStore.Api.Models;
+namespace BookStore.Api.DTOs;
 
-public class Book
+public class UpdateBookRequest
 {
-    public int Id { get; set; }
-
     public string Title { get; set; } = string.Empty;
 
     public int AuthorId { get; set; }
-
-    // navigation property (book.Author)
-    public Author Author { get; set; } = null!;
 
     public string ISBN { get; set; } = string.Empty;
 

@@ -21,7 +21,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Repository
-builder.Services.AddSingleton<IRepository<Book>, BookRepository>();
+builder.Services.AddScoped<IRepository<Book>, BookRepository>();
 
 // Service
 builder.Services.AddScoped<BookService>();

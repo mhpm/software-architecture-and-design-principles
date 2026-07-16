@@ -1,4 +1,4 @@
-using BookStore.Api.Models;
+using BookStore.Api.DTOs;
 using BookStore.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,9 +33,9 @@ public class BooksController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(Book book)
+    public IActionResult Create(CreateBookRequest request)
     {
-        var createdBook = _bookService.Create(book);
+        var createdBook = _bookService.Create(request);
 
         return CreatedAtAction(nameof(GetById),
             new { id = createdBook.Id },
@@ -43,9 +43,9 @@ public class BooksController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Book book)
+    public IActionResult Update(int id, UpdateBookRequest request)
     {
-        var updated = _bookService.Update(id, book);
+        var updated = _bookService.Update(id, request);
 
         if (!updated)
             return NotFound();
