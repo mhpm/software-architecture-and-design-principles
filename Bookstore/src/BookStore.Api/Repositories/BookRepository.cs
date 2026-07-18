@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Api.Repositories;
 
-public class BookRepository(BookStoreDbContext context) : IRepository<Book>
+public class BookRepository(BookStoreDbContext context) : IBookRepository
 {
     private readonly BookStoreDbContext _context = context;
 
