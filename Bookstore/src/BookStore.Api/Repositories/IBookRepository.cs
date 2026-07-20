@@ -4,13 +4,13 @@ namespace BookStore.Api.Repositories;
 
 public interface IBookRepository
 {
-    IEnumerable<Book> GetAll();
+    Task<IEnumerable<Book>> GetAllAsync();
 
-    Book? GetById(int id);
+    Task<Book?> GetByIdAsync(int id);
 
-    void Add(Book book);
+    Task AddAsync(Book book);
 
-    void Update(Book book);
+    Task UpdateAsync(Book book);
 
-    void Delete(int id);
+    Task DeleteAsync(int id);
 }

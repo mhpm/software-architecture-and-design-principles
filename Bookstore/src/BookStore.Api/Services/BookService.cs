@@ -7,46 +7,45 @@ namespace BookStore.Api.Services;
 
 public class BookService(IBookRepository repository, IEnumerable<IBookDeletionRule> deletionRules)
 {
-    public IEnumerable<BookResponse> GetAll()
+    public async Task<IEnumerable<BookResponse>> GetAllAsync()
     {
-        return repository
-            .GetAll()
+        return (await repository.GetAllAsync())
             .Select(book => book.ToResponse());
     }
 
-    public BookResponse? GetById(int id)
+    public async Task<BookResponse?> GetByIdAsync(int id)
     {
-        var book = repository.GetById(id);
+        var book = await repository.GetByIdAsync(id);
 
         return book?.ToResponse();
     }
 
-    public BookResponse Create(CreateBookRequest request)
+    public async Task<BookResponse> CreateAsync(CreateBookRequest request)
     {
         var book = request.ToEntity();
 
-        repository.Add(book);
+        await repository.AddAsync(book);
 
         return book.ToResponse();
     }
 
-    public bool Update(int id, UpdateBookRequest request)
+    public async Task<bool> UpdateAsync(int id, UpdateBookRequest request)
     {
-        var book = repository.GetById(id);
+        var book = await repository.GetByIdAsync(id);
 
         if (book is null)
             return false;
 
         book.UpdateFrom(request);
 
-        repository.Update(book);
+        await repository.UpdateAsync(book);
 
         return true;
     }
 
-    public bool Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        var book = repository.GetById(id);
+        var book = await repository.GetByIdAsync(id);
 
         if (book is null)
             return false;
@@ -56,7 +55,7 @@ public class BookService(IBookRepository repository, IEnumerable<IBookDeletionRu
             rule.Validate(book);
         }
 
-        repository.Delete(id);
+        await repository.DeleteAsync(id);
 
         return true;
     }

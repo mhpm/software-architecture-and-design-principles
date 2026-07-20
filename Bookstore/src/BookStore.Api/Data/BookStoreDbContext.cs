@@ -3,13 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Api.Data;
 
-public class BookStoreDbContext : DbContext
+public class BookStoreDbContext(DbContextOptions<BookStoreDbContext> options) : DbContext(options)
 {
-    public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options)
-        : base(options)
-    {
-    }
-
     public DbSet<Book> Books => Set<Book>();
     public DbSet<Author> Authors => Set<Author>();
 }

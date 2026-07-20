@@ -8,30 +8,30 @@ public class BookRepository(BookStoreDbContext context) : IBookRepository
 {
     private readonly BookStoreDbContext _context = context;
 
-    public IEnumerable<Book> GetAll()
+    public async Task<IEnumerable<Book>> GetAllAsync()
     {
-        return _context.Books
+        return await _context.Books
             .AsNoTracking()
             .Include(b => b.Author)
-            .ToList();
+            .ToListAsync();
     }
 
-    public Book? GetById(int id)
+    public async Task<Book?> GetByIdAsync(int id)
     {
-        return _context.Books
+        return await _context.Books
             .Include(b => b.Author)
-            .FirstOrDefault(b => b.Id == id);
+            .FirstOrDefaultAsync(b => b.Id == id);
     }
 
-    public void Add(Book book)
+    public async Task AddAsync(Book book)
     {
-        _context.Books.Add(book);
-        _context.SaveChanges();
+        await _context.Books.AddAsync(book);
+        await _context.SaveChangesAsync();
     }
 
-    public void Update(Book book)
+    public async Task UpdateAsync(Book book)
     {
-        var existingBook = _context.Books.Find(book.Id);
+        var existingBook = await _context.Books.FindAsync(book.Id);
 
         if (existingBook is null)
             return;
@@ -47,17 +47,17 @@ public class BookRepository(BookStoreDbContext context) : IBookRepository
         existingBook.IsHistorical = book.IsHistorical;
         existingBook.IsArchived = book.IsArchived;
 
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
-        var book = _context.Books.Find(id);
+        var book = await _context.Books.FindAsync(id);
 
         if (book is null)
             return;
 
         _context.Books.Remove(book);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 }
