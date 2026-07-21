@@ -26,7 +26,9 @@ public class BookService(IBookRepository repository, IEnumerable<IBookDeletionRu
 
         await repository.AddAsync(book);
 
-        return book.ToResponse();
+        var createdBook = await repository.GetByIdAsync(book.Id);
+
+        return (createdBook ?? book).ToResponse();
     }
 
     public async Task<bool> UpdateAsync(int id, UpdateBookRequest request)

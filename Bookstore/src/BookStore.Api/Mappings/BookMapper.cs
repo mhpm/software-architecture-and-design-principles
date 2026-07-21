@@ -28,7 +28,7 @@ public static class BookMapper
         {
             Id = book.Id,
             Title = book.Title,
-            Author = book.Author.Name,
+            Author = book.Author?.Name ?? string.Empty,
             ISBN = book.ISBN,
             PublishedDate = book.PublishedDate,
             Price = book.Price,
